@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
+import { AuthGuard } from './utils/auth.guard';
 
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
@@ -9,12 +10,19 @@ import { PostsComponent } from './games/posts/posts.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './users/profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-
+import { CanDeactivateService } from './utils/deactivate.service';
 const routeApp = [
   {
     path: 'games',
     component: GamesComponent,
-    children: [{ path: ':id/:rating', component: PostsComponent }],
+    canDeactivate: [AuthGuard],
+    children: [
+      {
+        path: ':id/:rating',
+        component: PostsComponent,
+        data: { title: 'The title of a page' },
+      },
+    ],
   },
   { path: '', component: HomeComponent },
   { path: 'account', redirectTo: 'users' },
@@ -23,7 +31,7 @@ const routeApp = [
     component: UsersComponent,
     children: [{ path: 'profile/:id', component: ProfileComponent }],
   },
-  { path: '**', component: NotFoundComponent },
+  { path: '**', component: HomeComponent },
 ];
 @NgModule({
   declarations: [

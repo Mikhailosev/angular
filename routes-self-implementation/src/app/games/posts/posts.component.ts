@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -26,5 +26,7 @@ export class PostsComponent implements OnInit {
       this.post.id = params[id];
       this.post.rating = params[rating];
     });
+    console.log(this.activatedRoute.snapshot.data['title']);
+    this.activatedRoute.data.subscribe((data) => console.log(data['title']));
   }
 }
