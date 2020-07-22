@@ -1,3 +1,4 @@
 <p>games works!</p>
-<a routerLink="games" class="p-2 text-dark">Games</a>
+<a [routerLink]="['/games', 16, 'r']" class="p-2 text-dark">Games</a>
 <button class="btn btn-primary" (click)="loadLink()">Load Home</button>
+<router-outlet></router-outlet>
